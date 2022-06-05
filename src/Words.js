@@ -2,6 +2,14 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { BASE_URL, WORDS_API_KEY } from './constants';
+
+const TextTransform = styled.div`
+transform: rotateY(180deg);
+text-align: right;
+font-size: 2rem;
+margin: 1em auto;
+`;
+
 const Words = () => {
     useEffect(() => {
         (async () => {
@@ -30,6 +38,9 @@ const Words = () => {
         })();
     }, []);
 
+    return (
+            <TextTransform>Hello</TextTransform>
+    );
 };
 
 export default Words;
