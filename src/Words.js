@@ -11,6 +11,10 @@ margin: 1em auto;
 `;
 
 const Words = () => {
+    const [words, setWords] = useState([]);
+    const [currentWordIndex, setCurrentWordIndex] = useState(0);
+    const [userInput, setUserInput] = useState('');
+
     useEffect(() => {
         (async () => {
             const options = {
@@ -38,8 +42,26 @@ const Words = () => {
         })();
     }, []);
 
+    const handleChange = (e) => {
+        setUserInput(e.target.value);
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (words[currentWordIndex].localeCompare(userInput) === 0) {
+            if (currentWordIndex + 1 < words.length) {
+                setCurrentWordIndex(currentWordIndex + 1);
+            }
+
+            setUserInput('');
+        }
+    }
+
     return (
-            <TextTransform>Hello</TextTransform>
+        <form onSubmit={handleSubmit}>
+            <TextTransform>{words[currentWordIndex]}</TextTransform>
+            <input type="text" value={userInput} onChange={handleChange} />
+        </form>
     );
 };
 
