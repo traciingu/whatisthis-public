@@ -1,24 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import styled from 'styled-components';
+import WordDisplay from './Words';
 
-function App() {
+const AppContainer = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+margin-top: 2em;
+`;
+
+const App = () => {
+  const handleClick = async (e) => {
+  };
+
+ 
+  // Get array of words and generate array of indexes in random order
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContainer>
+      <div>
+        <input type="button" value="Fetch words" onClick={handleClick} />
+      </div>
+      <WordDisplay/>
+    </AppContainer>
   );
 }
 
