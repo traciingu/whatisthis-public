@@ -5,16 +5,16 @@ import { BASE_URL, WORDS_API_KEY } from './constants';
 
 const TextTransform = styled.div`
 transform: rotateY(180deg);
-text-align: right;
 font-size: 2rem;
 margin: 1em auto;
 `;
 
-const Words = () => {
+const WordDisplay = () => {
     const [words, setWords] = useState([]);
     const [currentWordIndex, setCurrentWordIndex] = useState(0);
     const [userInput, setUserInput] = useState('');
 
+    // Get array of words and generate array of indexes in random order
     useEffect(() => {
         (async () => {
             const options = {
@@ -25,7 +25,7 @@ const Words = () => {
                     lettersMin: '5',
                     lettersMax: '10',
                     frequencyMin: '5',
-                    limit: '20',
+                    limit: '200',
                     page: '1'
                 },
                 headers: {
@@ -65,4 +65,4 @@ const Words = () => {
     );
 };
 
-export default Words;
+export default WordDisplay;
