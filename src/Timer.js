@@ -1,18 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const Timer = () => {
     const [time, setTime] = useState(60);
+    const timerId = useRef();
+
+    useEffect(() => {
+        if (time <= 0) {
+            clearInterval(timerId.current);
+        }
+    }, [time, timerId])
 
     const startTimer = () => {
         const start = Date.now();
-        setInterval(function () {
-            console.log("Triggered")
-            const delta = Math.floor((Date.now() - start) / 1000);
-            if (delta >= 1) {
-                setTime(time - delta);
-            }
-        }, 1000)
-    }
+        timerId.current = setInterval((start) => {
+            let delta = Math.floor((Date.now() - start) / 1000);
+            setTime(time - delta);
+        }, 500, start);
+    };
 
     return (
         <div>
