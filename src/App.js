@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import Timer from './Timer';
 import WordDisplay from './WordDisplay';
@@ -12,11 +13,17 @@ background-color: rgb(179, 179, 179);
 text-align: center;
 `;
 
-const App = () => { 
+const App = () => {
+  const [timerIsActive, setTimerIsActive] = useState(false);
+
+  const handleTimerIsActive = (isActive) => {
+    setTimerIsActive(isActive);
+  };
+
   return (
     <AppContainer>
-      <Timer/>
-      <WordDisplay/>
+      <Timer handleTimerIsActive={handleTimerIsActive} />
+      <WordDisplay timerIsActive={timerIsActive} />
     </AppContainer>
   );
 }

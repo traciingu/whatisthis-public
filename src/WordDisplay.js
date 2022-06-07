@@ -9,7 +9,7 @@ font-size: 2rem;
 margin: 1em auto;
 `;
 
-const WordDisplay = () => {
+const WordDisplay = ({ timerIsActive }) => {
     const [words, setWords] = useState([]);
     const [currentWordIndex, setCurrentWordIndex] = useState(0);
     const [userInput, setUserInput] = useState('');
@@ -60,7 +60,7 @@ const WordDisplay = () => {
     return (
         <form onSubmit={handleSubmit}>
             <TextTransform>{words[currentWordIndex]}</TextTransform>
-            <input type="text" value={userInput} onChange={handleChange} />
+            <input type="text" value={userInput} onChange={handleChange} disabled={!timerIsActive} />
         </form>
     );
 };
