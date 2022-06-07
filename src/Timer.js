@@ -7,6 +7,7 @@ const Timer = () => {
     useEffect(() => {
         if (time <= 0) {
             clearInterval(timerId.current);
+            setTime(60);
         }
     }, [time, timerId])
 
@@ -18,10 +19,16 @@ const Timer = () => {
         }, 500, start);
     };
 
+    const resetTimer = () => {
+        clearInterval(timerId.current);
+        setTime(60);
+    };
+
     return (
         <div>
-            <div>{time}</div>
+            <p>{time}</p>
             <input type="button" value="Start Time" onClick={startTimer} />
+            <input type="button" value="Reset" onClick={resetTimer} />
         </div>
     );
 }
