@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { fetchWords } from './helpers/fetchWords';
 
 const TextTransform = styled.div`
@@ -13,6 +13,7 @@ const WordDisplay = ({ timerIsActive }) => {
     const [currentWordIndex, setCurrentWordIndex] = useState(0);
     const [userInput, setUserInput] = useState('');
     const [responseType, setReponseType] = useState();
+    const timerClearResponseId = useRef();
 
     const responses = {
         'correct': 'Correct!',
@@ -20,8 +21,8 @@ const WordDisplay = ({ timerIsActive }) => {
         'results': `You entered ${currentWordIndex + 1} word(s) correctly!`
     };
 
-    const clearResponse = () => {
-        setTimeout(() => setReponseType(), 1750);
+    const delayClearResponse = () => {
+        timerClearResponseId.current = setTimeout(() => setReponseType(), 1750);
     };
 
     // Get array of words and generate array of indexes in random order
@@ -37,6 +38,8 @@ const WordDisplay = ({ timerIsActive }) => {
     useEffect(() => {
         if (!timerIsActive) {
             setReponseType('results');
+        } else {
+            setReponseType();
         }
     }, [timerIsActive]);
 
@@ -46,19 +49,20 @@ const WordDisplay = ({ timerIsActive }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        clearInterval(timerClearResponseId.current);
+        setReponseType();
+
         if (words[currentWordIndex].localeCompare(userInput) === 0) {
             if (currentWordIndex + 1 < words.length) {
                 setCurrentWordIndex(currentWordIndex + 1);
                 setReponseType('correct');
-                clearResponse();
-            } else {
-                setReponseType();
+                delayClearResponse();
             }
 
             setUserInput('');
         } else {
             setReponseType('wrong');
-            clearResponse();
+            delayClearResponse();
         }
     };
 
