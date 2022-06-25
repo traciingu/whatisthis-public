@@ -35,22 +35,20 @@ const App = () => {
     {
       value: "Light",
       className: "light theme-btn",
-      isSelected: true,
-      handleClick: handleCurrentTheme
+      isSelected: true      
     },
     {
       value: "Dark",
       className: "dark theme-btn",
-      isSelected: false,
-      handleClick: handleCurrentTheme
+      isSelected: false
     }
-  ]
+  ];
 
   return (
     <AppContainer>
       <GlobalStyle theme={themeColours[currentTheme]} />
-      <ThemePicker buttons={themeButtons}/>
-      <Timer handleTimerIsActive={handleTimerIsActive} />
+      <ThemePicker buttons={themeButtons} handleClick={handleCurrentTheme}/>
+      <Timer timerIsActive={timerIsActive} handleTimerIsActive={handleTimerIsActive} />
       <WordDisplay
         timerIsActive={timerIsActive}
         wordsData={wordsData}
@@ -59,6 +57,7 @@ const App = () => {
       {!timerIsActive
         && <DifficultyButtons handleWordsData={handleWordsData} />
       }
+
     </AppContainer>
   );
 }

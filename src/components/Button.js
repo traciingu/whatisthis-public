@@ -11,22 +11,15 @@ const ButtonStyling = styled.input`
     transition: background-color .1s, color .1s;
 `;
 
-const Button = ({ type = "button", value, className = "", isSelected, handleClick, index }) => {
+const Button = ({ type = "button", value, className = "", isSelected, index }) => {
     const buttonProperties = {
         type,
         value,
-        className: className + (isSelected ? " selected" : ""),
-        onClick: handleClick
+        className: className + (isSelected ? " selected" : "")
     };
 
     buttonProperties['data-index'] = index;
-    /*
-    [`data-${value}`]: 'foo',
-    type = { type }
-            value={value}
-            className={className + (isSelected ? " selected" : "")}
-            onClick={handleClick}
-    */
+
     return (
         <ButtonStyling {...buttonProperties} />
     );

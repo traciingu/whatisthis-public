@@ -22,9 +22,9 @@ const ThemePickerContainer = styled.div`
 }
 `;
 
-const ThemePicker = ({ buttons }) => {
+const ThemePicker = ({ buttons, handleClick }) => {
     return (
-        <ThemePickerContainer sun={sun} moon={moon}>
+        <ThemePickerContainer sun={sun} moon={moon} onClick={handleClick}>
             <ButtonGrouping buttons={buttons} />
         </ThemePickerContainer>
     );

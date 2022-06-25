@@ -69,13 +69,11 @@ const WordDisplay = ({ timerIsActive, wordsData }) => {
     const testModeButtons = [
         {
             value: "Backwards",
-            isSelected: true,
-            handleClick: handleTestMode
+            isSelected: true
         },
         {
             value: "Flipped",
-            isSelected: false,
-            handleClick: handleTestMode
+            isSelected: false
         }
     ];
 
@@ -85,11 +83,14 @@ const WordDisplay = ({ timerIsActive, wordsData }) => {
                 <TextTransform transform={textTransformSettings[testMode]}>{words[currentWordIndex]}</TextTransform>
                 <input type="text" value={userInput} onChange={handleInputChange} disabled={!timerIsActive} />
             </form>
-            {!timerIsActive && <ButtonGrouping buttons={testModeButtons}/>}
- 
+            {!timerIsActive &&
+                <div onClick={handleTestMode}>
+                    <ButtonGrouping buttons={testModeButtons} />
+                </div>}
+
             <TestResponse
                 responseType={responseType}
-                completedWordCount={currentWordIndex + 1}
+                completedWordCount={currentWordIndex}
                 handleResponseType={handleResponseType}
             />
         </>

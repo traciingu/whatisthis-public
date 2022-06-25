@@ -21,12 +21,11 @@ const DifficultyButtons = ({ handleWordsData }) => {
 
     const difficultyButtons = difficultyLevels.map(level => ({
         value: level,
-        handleClick: handleClick,
         isSelected: (level.toLowerCase().localeCompare(difficulty) === 0)
     }));
 
     return (
-        <div>
+        <div onClick={handleClick}>
             {<ButtonGrouping buttons={difficultyButtons} />}
         </div>
     )

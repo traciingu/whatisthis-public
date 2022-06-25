@@ -2,30 +2,21 @@ import { useState } from "react";
 import Button from "./Button";
 
 const ButtonGrouping = ({ buttons, canSelect = true }) => {
-    const [activeButtonIndex, setActiveButtonIndex] = useState(0);
-    const [buttonActiveStates, setButtonActiveState] = useState(Object.keys(buttons).map((key) => buttons[key]['isSelected']));
+    const [activeButtonIndex, setActiveButtonIndex] = useState(canSelect && parseInt(Object.keys(buttons).find((key) => buttons[key]['isSelected'] === true)));
 
     const handleButtonClick = (e) => {
-        const newButtonActiveStates = [...buttonActiveStates];
-        const newActiveButtonIndex = e.target.dataset.index;
-
-        newButtonActiveStates[activeButtonIndex] = false;
-        newButtonActiveStates[newActiveButtonIndex] = true;
-
-        setActiveButtonIndex(newActiveButtonIndex);
-        setButtonActiveState(newButtonActiveStates);
-
-        buttons[newActiveButtonIndex].handleClick(e);
+        e.target.tagName.localeCompare("INPUT") === 0 ?
+        setActiveButtonIndex(parseInt(e.target.dataset.index)) :
+        e.stopPropagation();
     };
 
     return (
-        <div>
+        <div onClick={canSelect ? handleButtonClick : () => {}}>
             {buttons.map((button, index) => {
                 const buttonProps = {
                     value: button.value,
                     className: button.className,
-                    isSelected: buttonActiveStates[index],
-                    handleClick: (canSelect ? handleButtonClick : button.handleClick),
+                    isSelected: canSelect && index === activeButtonIndex,
                     index
                 };
 

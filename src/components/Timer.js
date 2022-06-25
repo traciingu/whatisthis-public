@@ -10,7 +10,7 @@ font-size: 2rem;
  }
 `;
 
-const Timer = ({ handleTimerIsActive }) => {
+const Timer = ({ timerIsActive, handleTimerIsActive }) => {
     const [time, setTime] = useState(6);
     const timerId = useRef();
 
@@ -23,12 +23,14 @@ const Timer = ({ handleTimerIsActive }) => {
     }, [time, timerId, handleTimerIsActive]);
 
     const startTimer = () => {
-        handleTimerIsActive(true);
-        const start = Date.now();
-        timerId.current = setInterval((start) => {
-            let delta = Math.floor((Date.now() - start) / 1000);
-            setTime(time - delta);
-        }, 500, start);
+        if (!timerIsActive) {
+            handleTimerIsActive(true);
+            const start = Date.now();
+            timerId.current = setInterval((start) => {
+                let delta = Math.floor((Date.now() - start) / 1000);
+                setTime(time - delta);
+            }, 500, start);
+        }
     };
 
     const resetTimer = () => {
@@ -37,23 +39,31 @@ const Timer = ({ handleTimerIsActive }) => {
         setTime(6);
     };
 
+    const handleClick = (e) => {
+        if (e.target.value.toLowerCase().includes('start')) {
+            startTimer();
+        } else {
+            resetTimer();
+        }
+    }
+
     const timerButtons = [
         {
             value: "Start Time",
-            isSelected: false,
-            handleClick: startTimer
+            isSelected: false
         },
         {
             value: "Reset",
-            isSelected: false,
-            handleClick: resetTimer
+            isSelected: false
         }
     ];
 
     return (
         <TimerContainerStyling>
             <p className="time">{time}</p>
-            <ButtonGrouping buttons={timerButtons} canSelect={false}/>
+            <div onClick={handleClick}>
+                <ButtonGrouping buttons={timerButtons} canSelect={false} />
+            </div>
         </TimerContainerStyling>
     );
 }
