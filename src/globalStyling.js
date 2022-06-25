@@ -26,6 +26,10 @@ input[type="button"], input[type="submit"]{
 input[type="text"] {
     border-radius: 5px;
     border-color: transparent;
+
+    &:disabled {
+        background-color: ${props => props.theme['element-background-color']};
+    }
 }
 `;
 
